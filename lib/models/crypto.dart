@@ -3,10 +3,10 @@ class Crypto {
   String? symbol;
   String? name;
   String? image;
-  double? currentPrice;
-  double? marketCap;
-  int? marketCapRank;
-  double? marketCapChangePercentage;
+  num? currentPrice;
+  num? marketCap;
+  num? marketCapRank;
+  num? marketCapChangePercentage;
 
   Crypto({
     this.id,
