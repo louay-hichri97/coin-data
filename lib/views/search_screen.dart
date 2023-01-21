@@ -49,114 +49,119 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0XFF1B2540),
-      body: Padding(
-        padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.08,
-          right: MediaQuery.of(context).size.width * 0.08
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.065,
-            ),
-            InkWell(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0XFF1B2540),
+        body: Padding(
+          padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.08,
+            right: MediaQuery.of(context).size.width * 0.08
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.065,
+              ),
+              InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
                 child: CircleAvatar(
-                  backgroundColor: const Color(0XFF1B2540),
-                  child: SvgPicture.asset(
-                      "assets/images/icon-back.svg"
+                  backgroundColor: Colors.white,
+                  child: CircleAvatar(
+                    backgroundColor: const Color(0XFF1B2540),
+                    child: SvgPicture.asset(
+                        "assets/images/icon-back.svg"
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.015,
-            ),
-            Center(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: TextFormField(
-                  controller: _searchController,
-                  onChanged: (value) {
-                    if(value.isNotEmpty) {
-                      filter(value);
-                    }
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.015,
+              ),
+              Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: TextFormField(
+                    controller: _searchController,
+                    onChanged: (value) {
+                      if(value.isNotEmpty) {
+                        filter(value);
+                      }
 
 
-                  },
-                  style: GoogleFonts.poppins(
-                      letterSpacing: 0.9,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      fontSize: MediaQuery.of(context).size.width * 0.03,
-                      color:Colors.white
-                  ),
-                  decoration: InputDecoration(
-                    hintText: 'Search token ...',
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.015,
-                        bottom: MediaQuery.of(context).size.height * 0.015
-                      ),
-                      child: SvgPicture.asset(
-                        "assets/images/search-icon.svg"
-                      ),
-                    ),
-                    hintStyle: GoogleFonts.poppins(
+                    },
+                    style: GoogleFonts.poppins(
                         letterSpacing: 0.9,
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
                         fontSize: MediaQuery.of(context).size.width * 0.03,
                         color:Colors.white
                     ),
-                    isDense: true,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(
-                          MediaQuery.of(context).size.width * 0.035)),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.width * 0.035),
-                      borderSide:  const BorderSide(
-                        color:  Colors.grey,
+                    decoration: InputDecoration(
+                      hintText: 'Search token ...',
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.015,
+                          bottom: MediaQuery.of(context).size.height * 0.015
+                        ),
+                        child: SvgPicture.asset(
+                          "assets/images/search-icon.svg"
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.width * 0.035),
-                      borderSide: const BorderSide(
-                        color: Colors.grey,
+                      hintStyle: GoogleFonts.poppins(
+                          letterSpacing: 0.9,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                          color:Colors.white
                       ),
+                      isDense: true,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(
+                            MediaQuery.of(context).size.width * 0.035)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.width * 0.035),
+                        borderSide:  const BorderSide(
+                          color:  Colors.grey,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                            MediaQuery.of(context).size.width * 0.035),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      fillColor: const Color(0XFF273958),
                     ),
-                    fillColor: const Color(0XFF273958),
                   ),
+
                 ),
-
               ),
-            ),
 
-            /*if(_searchController.text.isNotEmpty)
-              ListView.builder(
-                  itemCount: _cryptoList.length,
-                  itemBuilder: (context, index) {
-                    List _filterCryptoList
-                  }
-              )*/
+              /*if(_searchController.text.isNotEmpty)
+                ListView.builder(
+                    itemCount: _cryptoList.length,
+                    itemBuilder: (context, index) {
+                      List _filterCryptoList
+                    }
+                )*/
 
-          ],
+            ],
+          ),
         ),
       ),
     );
