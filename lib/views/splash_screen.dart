@@ -1,4 +1,6 @@
+import 'package:coin_data/utils/constants.dart';
 import 'package:coin_data/views/onboarding_screen.dart';
+import 'package:coin_data/views_models/crypto_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
@@ -11,6 +13,25 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final CryptoViewModel _cryptoViewModel = CryptoViewModel();
+
+
+  fetchCrypto() async {
+    try {
+      await _cryptoViewModel.fetchCryptoList();
+      await _cryptoViewModel.fetchCryptoTrendList();
+      Navigator.pushNamed(context, onBoardingScreen);
+    } catch(e) {
+
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCrypto();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
