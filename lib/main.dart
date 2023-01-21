@@ -1,4 +1,5 @@
-import 'package:coin_data/router.dart';
+import 'package:coin_data/router/router.dart';
+import 'package:coin_data/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'coinData',
      onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: '/',
+      initialRoute: splashScreen,
     );
   }
 }
