@@ -31,4 +31,17 @@ class Crypto {
 
   }
 
+  Crypto.fromJsonTrend(Map<String, dynamic> json) {
+    id = json["item"]["id"];
+    symbol = json["item"]["symbol"];
+    name = json["item"]["name"];
+    image = json["item"]["image"];
+    currentPrice = json["item"]["current_price"];
+    marketCap = json["item"]["market_cap"];
+    marketCapRank = json["item"]["market_cap_rank"];
+    marketCapChangePercentage = json["item"]["market_cap_change_percentage_24h"];
+
+  }
+
+
 }
