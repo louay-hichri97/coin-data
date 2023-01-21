@@ -45,7 +45,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: size.height * 0.45,
+                    top: size.height * 0.5,
                     left: size.width * 0.1,
                     right: size.width * 0.1
                   ),
@@ -65,7 +65,7 @@ class OnBoardingScreen extends StatelessWidget {
                 ),
             Padding(
               padding: EdgeInsets.only(
-                top: size.height * 0.7
+                top: size.height * 0.75
               ),
               child: Center(
                 child: Container(
