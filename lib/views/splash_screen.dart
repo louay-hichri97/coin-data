@@ -13,36 +13,41 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      backgroundColor: const Color(0XFF1B2540),
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
-          ),
-          Center(
-            child: Text(
-              "coinData",
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.height * 0.035),
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: SafeArea(
+          child: Scaffold(
+        backgroundColor: const Color(0XFF1B2540),
+        body: Column(
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.4,
             ),
-          ),
-          const Spacer(),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.025,
-            width: MediaQuery.of(context).size.height * 0.025,
-            child: const CircularProgressIndicator(
-              color: Colors.white,
+            Center(
+              child: Text(
+                "coinData",
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: MediaQuery.of(context).size.height * 0.035),
+              ),
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-        ],
-      ),
-    ));
+            const Spacer(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.025,
+              width: MediaQuery.of(context).size.height * 0.025,
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }
