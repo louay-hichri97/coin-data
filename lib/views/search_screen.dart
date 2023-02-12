@@ -33,12 +33,9 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   filter(String name) {
-    print(name);
-
     setState(() {
       _filterList = [];
     });
-
     for(var i = 0; i < Provider.of<CryptoViewModel>(context, listen: false).cryptoList.length ; i ++) {
       if(Provider.of<CryptoViewModel>(context, listen: false).cryptoList[i].id.toString().trim().contains(name.trim()) || Provider.of<CryptoViewModel>(context, listen: false).cryptoList[i].symbol.toString().trim().contains(name.trim())) {
         setState(() {
@@ -47,16 +44,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
       }
     }
-    print(_filterList);
   }
 
 
   @override
   void initState() {
     super.initState();
-
-
-
   }
 
   @override
