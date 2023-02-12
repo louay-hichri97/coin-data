@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .toString()) >
                                                 0
                                             ? "+${bitcoin.marketCapChangePercentage.toString().substring(0, bitcoin.marketCapChangePercentage.toString().indexOf('.') + 3)} %"
-                                            : "-${bitcoin.marketCapChangePercentage.toString().substring(0, bitcoin.marketCapChangePercentage.toString().indexOf('.') + 3)} %}",
+                                            : "${bitcoin.marketCapChangePercentage.toString().substring(0, bitcoin.marketCapChangePercentage.toString().indexOf('.') + 3)} %",
                                         style: GoogleFonts.poppins(
                                             color: double.parse(bitcoin
                                                         .marketCapChangePercentage
@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .toString()) >
                                                 0
                                             ? "+${ether.marketCapChangePercentage.toString().substring(0, ether.marketCapChangePercentage.toString().indexOf('.') + 3)} %"
-                                            : "-${ether.marketCapChangePercentage.toString().substring(0, ether.marketCapChangePercentage.toString().indexOf('.') + 3)} %}",
+                                            : "${ether.marketCapChangePercentage.toString().substring(0, ether.marketCapChangePercentage.toString().indexOf('.') + 3)} %",
                                         style: GoogleFonts.poppins(
                                             color: double.parse(ether
                                                         .marketCapChangePercentage
@@ -324,7 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .toString()) >
                                                 0
                                             ? "+${bnb.marketCapChangePercentage.toString().substring(0, bnb.marketCapChangePercentage.toString().indexOf('.') + 3)} %"
-                                            : "-${bnb.marketCapChangePercentage.toString().substring(0, bnb.marketCapChangePercentage.toString().indexOf('.') + 3)} %}",
+                                            : "${bnb.marketCapChangePercentage.toString().substring(0, bnb.marketCapChangePercentage.toString().indexOf('.') + 3)} %",
                                         style: GoogleFonts.poppins(
                                             color: double.parse(bnb
                                                         .marketCapChangePercentage
@@ -410,7 +410,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .toString()) >
                                                 0
                                             ? "+${sol.marketCapChangePercentage.toString().substring(0, sol.marketCapChangePercentage.toString().indexOf('.') + 3)} %"
-                                            : "-${sol.marketCapChangePercentage.toString().substring(0, sol.marketCapChangePercentage.toString().indexOf('.') + 3)} %}",
+                                            : "${sol.marketCapChangePercentage.toString().substring(0, sol.marketCapChangePercentage.toString().indexOf('.') + 3)} %",
                                         style: GoogleFonts.poppins(
                                             color: double.parse(sol
                                                         .marketCapChangePercentage
