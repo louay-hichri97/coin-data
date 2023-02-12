@@ -1,4 +1,5 @@
 import 'package:coin_data/service/api_service.dart';
+import 'package:coin_data/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 hoverColor: Colors.transparent,
                 focusColor: Colors.transparent,
                 onTap: () {
-                  Navigator.of(context).pop();
+                  Navigator.pushNamed(context, homeScreen);
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.white,

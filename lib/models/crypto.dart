@@ -35,7 +35,7 @@ class Crypto {
     id = json["item"]["id"];
     symbol = json["item"]["symbol"];
     name = json["item"]["name"];
-    image = json["item"]["image"];
+    image = json["item"]["thumb"];
     currentPrice = json["item"]["current_price"];
     marketCap = json["item"]["market_cap"];
     marketCapRank = json["item"]["market_cap_rank"];

@@ -3,6 +3,7 @@ import 'package:coin_data/views/onboarding_screen.dart';
 import 'package:coin_data/views_models/crypto_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,8 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   fetchCrypto() async {
     try {
-      await _cryptoViewModel.fetchCryptoList();
-      await _cryptoViewModel.fetchCryptoTrendList();
+      await Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoList();
+      await Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoTrendList();
       Navigator.pushNamed(context, onBoardingScreen);
     } catch(e) {
 

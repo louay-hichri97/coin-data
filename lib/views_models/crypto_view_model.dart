@@ -1,24 +1,29 @@
+import 'dart:collection';
+
 import 'package:coin_data/models/crypto.dart';
 import 'package:coin_data/service/api_service.dart';
 import 'package:flutter/material.dart';
 
 
-class CryptoViewModel extends ChangeNotifier {
+class CryptoViewModel with ChangeNotifier {
   // PRIVATE
-  List<Crypto> _cryptoList = [];
-  List<Crypto> _trendCryptoList = [];
+  List<Crypto> cryptoList = [];
+  List<Crypto> trendCryptoList = [];
   final ApiService _apiService = ApiService();
+  String x = "123";
 
 
-  List<Crypto> get cryptoList => _cryptoList;
-  List<Crypto> get trendCryptoList => _trendCryptoList;
+
+
+
 
   // FETCH ALL COINS
-  Future<List<Crypto>> fetchCryptoList() async {
+   fetchCryptoList() async {
     try {
       var result = await _apiService.getCryptoListData();
-      _cryptoList = result.map<Crypto>((e) => Crypto.fromJson(e)).toList();
-      return _cryptoList;
+      var list = result.map<Crypto>((e) => Crypto.fromJson(e)).toList();
+      cryptoList.addAll(list);
+      return cryptoList;
     } catch(e) {
       throw Exception('Unable to fetch data from the RestAPI');
     }
@@ -30,8 +35,9 @@ class CryptoViewModel extends ChangeNotifier {
   Future<List<Crypto>> fetchCryptoTrendList() async {
     try {
       var result = await _apiService.getTrendCrypto();
-      _trendCryptoList = result["coins"].map<Crypto>((e) => Crypto.fromJsonTrend(e)).toList();
-      return _trendCryptoList;
+      print(result);
+      trendCryptoList = result["coins"].map<Crypto>((e) => Crypto.fromJsonTrend(e)).toList();
+      return trendCryptoList;
     } catch(e) {
       throw Exception('Unable to fetch data from the RestAPI');
     }
