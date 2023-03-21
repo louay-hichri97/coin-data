@@ -19,6 +19,7 @@ class ApiService {
       headers: requestHeaders,
     );
     if(response.statusCode == 200) {
+      print(response.body);
       var jsonResponse = json.decode(response.body);
       return jsonResponse;
     } else {
@@ -73,9 +74,50 @@ class ApiService {
     );
     if(response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
+
       return jsonResponse;
     } else {
       throw Exception("Unable to fetch data from Rest API");
+    }
+  }
+
+
+  Future getCryptoDetails(String id) async {
+    Map<String, String> requestHeaders = {
+      "content-type" : "application/json; charset=utf-8"
+    };
+    final queryParameters = {
+      "vs_currency": "usd",
+      "days": "max"
+    };
+    var url = Uri.https(baseURL, "/api/v3/coins/${id}/market_chart",queryParameters);
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+    if(response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      return jsonResponse["prices"];
+    } else {
+      throw Exception("Unable to fetch data from Rest API");
+    }
+  }
+
+
+  Future getCryptoDescription(String id) async {
+    Map<String, String> requestHeaders = {
+      "content-type": "application/json; charset=utf-8"
+    };
+    var url = Uri.https(baseURL, "/api/v3/coins/$id");
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+    if(response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      return jsonResponse["description"]["en"];
+    } else {
+      throw Exception('Unable to fetch data from Rest API');
     }
   }
 

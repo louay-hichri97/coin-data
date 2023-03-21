@@ -1,4 +1,5 @@
 import 'package:coin_data/utils/constants.dart';
+import 'package:coin_data/views/crypto_details_screen.dart';
 import 'package:coin_data/views/home_screen.dart';
 import 'package:coin_data/views/onboarding_screen.dart';
 import 'package:coin_data/views/search_screen.dart';
@@ -16,6 +17,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case searchScreen:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
+      case cryptoDetails:
+        return MaterialPageRoute(builder: (_) => const CryptoDetailsScreen());
       default:
         return MaterialPageRoute(builder: (_) => Scaffold(
           body: Center(

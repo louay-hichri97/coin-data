@@ -7,6 +7,11 @@ class Crypto {
   num? marketCap;
   num? marketCapRank;
   num? marketCapChangePercentage;
+  num? fullyDilutedValuation;
+  num? circulatingSupply;
+  num? high24h;
+  num? low24h;
+  num? maxSupply;
 
   Crypto({
     this.id,
@@ -16,7 +21,12 @@ class Crypto {
     this.currentPrice,
     this.marketCap,
     this.marketCapRank,
-    this.marketCapChangePercentage
+    this.marketCapChangePercentage,
+    this.fullyDilutedValuation,
+    this.circulatingSupply,
+    this.high24h,
+    this.low24h,
+    this.maxSupply
 });
 
   Crypto.fromJson(Map<String, dynamic> json) {
@@ -28,6 +38,11 @@ class Crypto {
     marketCap = json["market_cap"];
     marketCapRank = json["market_cap_rank"];
     marketCapChangePercentage = json["market_cap_change_percentage_24h"];
+    fullyDilutedValuation = json["fully_diluted_valuation"];
+    circulatingSupply = json["circulating_supply"];
+    high24h = json["high_24h"];
+    low24h = json["low_24h"];
+    maxSupply = json["max_supply"];
 
   }
 
@@ -35,7 +50,7 @@ class Crypto {
     id = json["item"]["id"];
     symbol = json["item"]["symbol"];
     name = json["item"]["name"];
-    image = json["item"]["thumb"];
+    image = json["item"]["small"];
     currentPrice = json["item"]["current_price"];
     marketCap = json["item"]["market_cap"];
     marketCapRank = json["item"]["market_cap_rank"];

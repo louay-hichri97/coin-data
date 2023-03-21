@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     try {
       await Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoList();
       await Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoTrendList();
-      Navigator.pushNamed(context, onBoardingScreen);
+      Navigator.pushNamed(context, homeScreen);
     } catch(e) {
 
     }
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
       child: SafeArea(
           child: Scaffold(
-        backgroundColor: const Color(0XFF1B2540),
+        backgroundColor: Colors.white,
         body: Column(
           children: <Widget>[
             SizedBox(
@@ -50,22 +50,25 @@ class _SplashScreenState extends State<SplashScreen> {
             Center(
               child: Text(
                 "coinData",
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    fontSize: MediaQuery.of(context).size.height * 0.035),
+                style: TextStyle(
+                  fontFamily: 'Climate',
+                  color: const Color(0xFF210080),
+                    fontSize: MediaQuery.of(context).size.height * 0.035,
+                    fontWeight: FontWeight.w400
+                ),
               ),
             ),
             const Spacer(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
               width: MediaQuery.of(context).size.height * 0.025,
-              child: const CircularProgressIndicator(
-                color: Colors.white,
+              child: const  CircularProgressIndicator(
+                color: Color(0xFF210080),
               ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
+
             ),
           ],
         ),

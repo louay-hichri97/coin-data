@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ApiService _apiService = ApiService();
-  final formatCurrency = NumberFormat.simpleCurrency();
+  final formatCurrency = NumberFormat.simpleCurrency(decimalDigits: 2);
 
   String greeting() {
     var hour = DateTime.now().hour;
@@ -35,6 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    print(Provider.of<CryptoViewModel>(context, listen: false)
+            .trendCryptoList[7]
+            .marketCapRank ==
+        null);
   }
 
   @override
@@ -58,56 +62,32 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: SafeArea(
           child: Scaffold(
-              appBar: null,
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: Colors.white,
+                automaticallyImplyLeading: false,
+                title: Text(
+                  "coinData",
+                  style: TextStyle(
+                      fontFamily: 'Climate',
+                      color: const Color(0xFF210080),
+                      fontSize: MediaQuery.of(context).size.height * 0.025,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
               bottomNavigationBar: null,
-              backgroundColor: const Color(0XFF1B2540),
-              body: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
+              backgroundColor: Colors.white,
+              body: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.08,
-                            right: MediaQuery.of(context).size.width * 0.08,
-                            top: MediaQuery.of(context).size.height * 0.025),
-                        child: Row(
-                          children: [
-                            /**
-                           * Greetings
-                           * */
-                            Text(
-                              "Good ${greeting()},",
-                              style: GoogleFonts.poppins(
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.1,
-                                  color: Colors.grey,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.04),
-                            ),
-                            const Spacer(),
-                            CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: CircleAvatar(
-                                backgroundColor: const Color(0XFF1B2540),
-                                child: InkWell(
-                                  child: SvgPicture.asset(
-                                      "assets/images/search-icon.svg"),
-                                  onTap: () {
-                                    Navigator.pushNamed(context, searchScreen);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.075,
                           right: MediaQuery.of(context).size.width * 0.075,
-                          top: MediaQuery.of(context).size.height * 0.05,
+                          top: MediaQuery.of(context).size.height * 0.015,
                         ),
                         child: Row(
                           children: [
@@ -125,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .size
                                                   .width *
                                               0.0325,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: 0.9),
                                     ),
@@ -174,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .format(bitcoin.currentPrice)
                                               .replaceAll('\$', ""),
                                           style: GoogleFonts.poppins(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontSize: MediaQuery.of(context)
                                                       .size
                                                       .width *
@@ -211,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .size
                                                   .width *
                                               0.0325,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: 0.9),
                                     ),
@@ -260,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .format(ether.currentPrice)
                                               .replaceAll('\$', ""),
                                           style: GoogleFonts.poppins(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontSize: MediaQuery.of(context)
                                                       .size
                                                       .width *
@@ -290,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           left: MediaQuery.of(context).size.width * 0.075,
                           right: MediaQuery.of(context).size.width * 0.075,
                           top: MediaQuery.of(context).size.height * 0.035,
-                          bottom: MediaQuery.of(context).size.height * 0.05,
+                          bottom: MediaQuery.of(context).size.height * 0.025,
                         ),
                         child: Row(
                           children: [
@@ -308,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .size
                                                   .width *
                                               0.0325,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: 0.9),
                                     ),
@@ -357,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .format(bnb.currentPrice)
                                               .replaceAll('\$', ""),
                                           style: GoogleFonts.poppins(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontSize: MediaQuery.of(context)
                                                       .size
                                                       .width *
@@ -394,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .size
                                                   .width *
                                               0.0325,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: 0.9),
                                     ),
@@ -443,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               .format(sol.currentPrice)
                                               .replaceAll('\$', ""),
                                           style: GoogleFonts.poppins(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontSize: MediaQuery.of(context)
                                                       .size
                                                       .width *
@@ -468,127 +448,323 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.84,
-                          color: const Color(0XFF273958),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.025,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.025),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.01,
-                                ),
-                                Text(
-                                  "Trend coins",
-                                  style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w700,
-                                      fontStyle: FontStyle.normal,
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.0375,
-                                      color: Colors.white,
-                                      letterSpacing: 1.3),
-                                ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.025,
-                                ),
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: Provider.of<CryptoViewModel>(
-                                            context,
-                                            listen: false)
-                                        .trendCryptoList
-                                        .length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.015,
-                                            bottom: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.015),
-                                        child: Row(
-                                          children: <Widget>[
-                                            CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                Provider.of<CryptoViewModel>(
-                                                        context,
-                                                        listen: false)
-                                                    .trendCryptoList[index]
-                                                    .image
-                                                    .toString(),
-                                              ),
-                                              backgroundColor:
-                                                  const Color(0XFF273958),
-                                            ),
-                                            SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.035,
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                    Provider.of<CryptoViewModel>(
-                                                            context,
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.05,
+                            bottom: MediaQuery.of(context).size.height * 0.025
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/fire.svg",
+                              color: const Color(0XFFCD0404),
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.035,
+                            ),
+                            Text("Trending",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.0225)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.05,
+                            top: MediaQuery.of(context).size.height * 0.01),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 0,
+                                    mainAxisSpacing: 0,
+                                    childAspectRatio: 0.5),
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: Provider.of<CryptoViewModel>(context,
+                                    listen: false)
+                                .trendCryptoList
+                                .length,
+                            itemBuilder: (context, index) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                      Provider.of<CryptoViewModel>(context,
+                                              listen: false)
+                                          .trendCryptoList[index]
+                                          .image
+                                          .toString(),
+                                    ),
+                                    backgroundColor: Colors.white,
+                                  ),
+                                  Padding(
+                                    padding:  EdgeInsets.only(
+                                      left: MediaQuery.of(context).size.width * 0.02
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            Provider.of<CryptoViewModel>(context,
+                                                    listen: false)
+                                                .trendCryptoList[index]
+                                                .symbol
+                                                .toString(),
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w700,
+                                                letterSpacing: 0.9,
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.012,
+                                                color: Colors.black)),
+                                        Text(
+                                            Provider.of<CryptoViewModel>(context,
                                                             listen: false)
                                                         .trendCryptoList[index]
-                                                        .symbol
-                                                        .toString(),
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        letterSpacing: 0.9,
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.03,
-                                                        color: Colors.white)),
-                                                Text(
-                                                    "Rank #${Provider.of<CryptoViewModel>(context, listen: false).trendCryptoList[index].marketCapRank}",
-                                                    style: GoogleFonts.poppins(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        letterSpacing: 0.9,
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.02,
-                                                        color: Colors.grey)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
-                              ],
-                            ),
+                                                        .marketCapRank ==
+                                                    null
+                                                ? "Rank # --"
+                                                : "Rank #${Provider.of<CryptoViewModel>(context, listen: false).trendCryptoList[index].marketCapRank}",
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w400,
+                                                letterSpacing: 0.9,
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01,
+                                                color: Colors.grey)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
-                      )
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.05,
+                              ),
+                          child: Text(
+                              "Today's Cryptocurrency Prices by Market Cap",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018)),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.05,
+                          right: MediaQuery.of(context).size.width * 0.05,
+                        ),
+                        child: ListView.builder(
+                            itemCount: 10,
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  top: index == 0
+                                      ? MediaQuery.of(context).size.height *
+                                          0.03
+                                      : MediaQuery.of(context).size.height *
+                                          0.015,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.075,
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                          Provider.of<CryptoViewModel>(context,
+                                                  listen: false)
+                                              .cryptoList[index]
+                                              .image
+                                              .toString(),
+                                        ),
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.035,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.125,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              Provider.of<CryptoViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .cryptoList[index]
+                                                  .name
+                                                  .toString(),
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 0.9,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.012,
+                                                  color: Colors.black)),
+                                          Text(
+                                              Provider.of<CryptoViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .cryptoList[index]
+                                                  .symbol
+                                                  .toString()
+                                                  .toUpperCase(),
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: 0.9,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.01,
+                                                  color: Colors.grey)),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.05,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.2,
+                                      child: Text(
+                                          formatCurrency.format(
+                                              Provider.of<CryptoViewModel>(
+                                                      context,
+                                                      listen: false)
+                                                  .cryptoList[index]
+                                                  ?.currentPrice),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              letterSpacing: 0.9,
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.012,
+                                              color: Colors.black)),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.035,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      child: Text(
+                                        double.parse(Provider.of<CryptoViewModel>(
+                                                        context,
+                                                        listen: false)
+                                                    .cryptoList[index]
+                                                    .marketCapChangePercentage
+                                                    .toString()) >
+                                                0
+                                            ? "+${Provider.of<CryptoViewModel>(context, listen: false).cryptoList[index].marketCapChangePercentage.toString().substring(0, Provider.of<CryptoViewModel>(context, listen: false).cryptoList[index].marketCapChangePercentage.toString().indexOf('.') + 3)} %"
+                                            : "${Provider.of<CryptoViewModel>(context, listen: false).cryptoList[index].marketCapChangePercentage.toString().substring(0, Provider.of<CryptoViewModel>(context, listen: false).cryptoList[index].marketCapChangePercentage.toString().indexOf('.') + 3)} %",
+                                        style: GoogleFonts.poppins(
+                                            color: double.parse(Provider.of<
+                                                                CryptoViewModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .cryptoList[index]
+                                                        .marketCapChangePercentage
+                                                        .toString()) <
+                                                    0
+                                                ? Colors.red
+                                                : Colors.green,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.0275,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.025,
+                                    ),
+                                    Text(
+                                        Provider.of<CryptoViewModel>(context,
+                                                        listen: false)
+                                                    .cryptoList[index]
+                                                    .marketCapRank ==
+                                                null
+                                            ? "Rank # --"
+                                            : "Rank #${Provider.of<CryptoViewModel>(context, listen: false).cryptoList[index].marketCapRank}",
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w400,
+                                            letterSpacing: 0.9,
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.01,
+                                            color: Colors.grey)),
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, searchScreen);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.015,
+                            bottom: MediaQuery.of(context).size.height * 0.015
+                          ),
+                          child: Text(
+                            "Show more Cryptocurrencies ...",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF210080),
+                                letterSpacing: 1,
+                                fontStyle: FontStyle.normal,
+                                fontSize:
+                                MediaQuery.of(context).size.height * 0.0135),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                     ],
                   ),
                 ),

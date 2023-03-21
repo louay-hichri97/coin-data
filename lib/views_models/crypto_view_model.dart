@@ -9,6 +9,7 @@ class CryptoViewModel with ChangeNotifier {
   // PRIVATE
   List<Crypto> cryptoList = [];
   List<Crypto> trendCryptoList = [];
+  Crypto? selectedCrypto;
   final ApiService _apiService = ApiService();
   String x = "123";
 
@@ -21,6 +22,7 @@ class CryptoViewModel with ChangeNotifier {
    fetchCryptoList() async {
     try {
       var result = await _apiService.getCryptoListData();
+      print(result);
       var list = result.map<Crypto>((e) => Crypto.fromJson(e)).toList();
       cryptoList.addAll(list);
       return cryptoList;
@@ -35,12 +37,16 @@ class CryptoViewModel with ChangeNotifier {
   Future<List<Crypto>> fetchCryptoTrendList() async {
     try {
       var result = await _apiService.getTrendCrypto();
-      print(result);
       trendCryptoList = result["coins"].map<Crypto>((e) => Crypto.fromJsonTrend(e)).toList();
       return trendCryptoList;
     } catch(e) {
       throw Exception('Unable to fetch data from the RestAPI');
     }
 
+  }
+
+
+  selectCrypto(Crypto crypto) {
+     selectedCrypto = crypto;
   }
 }
