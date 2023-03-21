@@ -62,20 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: SafeArea(
           child: Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.white,
-                automaticallyImplyLeading: false,
-                title: Text(
-                  "coinData",
-                  style: TextStyle(
-                      fontFamily: 'Climate',
-                      color: const Color(0xFF210080),
-                      fontSize: MediaQuery.of(context).size.height * 0.025,
-                      fontWeight: FontWeight.w400),
-                ),
-              ),
-              bottomNavigationBar: null,
               backgroundColor: Colors.white,
               body: SizedBox(
                 height: MediaQuery.of(context).size.height,
@@ -87,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.075,
                           right: MediaQuery.of(context).size.width * 0.075,
-                          top: MediaQuery.of(context).size.height * 0.015,
+                          top: MediaQuery.of(context).size.height * 0.035,
                         ),
                         child: Row(
                           children: [

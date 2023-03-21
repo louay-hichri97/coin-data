@@ -42,6 +42,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   provider: ^6.0.5
   syncfusion_flutter_charts: ^20.4.54
+  url_launcher: ^6.1.10
 
 
 dev_dependencies:
@@ -74,6 +75,9 @@ flutter:
     - assets/images/icon-back.svg
     - assets/images/error-404.png
     - assets/images/fire.svg
+    - assets/images/house-fill.svg
+    - assets/images/convertisseur.svg
+    - assets/images/currency-exchange.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

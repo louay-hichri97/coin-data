@@ -64,7 +64,7 @@ class _CryptoDetailsScreenState extends State<CryptoDetailsScreen> {
     super.initState();
     showStats = false;
     dataHistoryLoading = true;
-    print(double.parse(Provider.of<CryptoViewModel>(context, listen: false).selectedCrypto?.currentPrice.toString() ?? "0") < 0.01);
+
     fetchDataHistory();
     fetchDescription();
   }

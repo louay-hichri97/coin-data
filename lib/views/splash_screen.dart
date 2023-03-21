@@ -19,11 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   fetchCrypto() async {
     try {
-      await Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoList();
-      await Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoTrendList();
-      Navigator.pushNamed(context, homeScreen);
-    } catch(e) {
+      await Future.wait([
+        Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoList(),
+        Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoTrendList(),
+        Provider.of<CryptoViewModel>(context, listen: false).fetchExchangesList(),
+      ]).then((values) => {
+      Navigator.pushNamed(context, mainScreen)
+      });
 
+
+    } catch(e) {
+      print(e);
     }
   }
 

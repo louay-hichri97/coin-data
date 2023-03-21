@@ -18,8 +18,29 @@ class ApiService {
       url,
       headers: requestHeaders,
     );
+    print("crypto list ${response.body}");
     if(response.statusCode == 200) {
-      print(response.body);
+
+      var jsonResponse = json.decode(response.body);
+      return jsonResponse;
+    } else {
+      throw Exception('Unable to fetch data from the RestAPI');
+    }
+  }
+
+  Future getExchangeListData() async {
+    Map<String, String> requestHeaders = {
+      "content-type": "application/json; charset=utf-8"
+    };
+
+    var url = Uri.https(baseURL, "/api/v3/exchanges");
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+    print("exchange list ${response.body}");
+    if(response.statusCode == 200) {
+
       var jsonResponse = json.decode(response.body);
       return jsonResponse;
     } else {
@@ -72,6 +93,7 @@ class ApiService {
       url,
       headers: requestHeaders,
     );
+    print("trend list ${response.body}");
     if(response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
 
