@@ -15,21 +15,33 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final CryptoViewModel _cryptoViewModel = CryptoViewModel();
-
+  bool _errorLoadingData = false;
 
   fetchCrypto() async {
     try {
+      setState(() {
+        _errorLoadingData = false;
+      });
       await Future.wait([
         Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoList(),
         Provider.of<CryptoViewModel>(context, listen: false).fetchCryptoTrendList(),
         Provider.of<CryptoViewModel>(context, listen: false).fetchExchangesList(),
-      ]).then((values) => {
-      Navigator.pushNamed(context, mainScreen)
-      });
+      ]).then((values) {
+        Provider.of<CryptoViewModel>(context, listen: false).selectedIndex = 0;
+          Navigator.pushNamed(context, mainScreen);
+      }).catchError(
+          (err) {
+            setState(() {
+              _errorLoadingData = true;
+            });
+          }
+      );
 
 
     } catch(e) {
-      print(e);
+      setState(() {
+        _errorLoadingData = true;
+      });
     }
   }
 
@@ -48,7 +60,51 @@ class _SplashScreenState extends State<SplashScreen> {
       child: SafeArea(
           child: Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: _errorLoadingData
+            ? Column(
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+            ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.1,
+                  right: MediaQuery.of(context).size.width * 0.1,
+                ),
+                child: Text(
+                  "Something went wrong please try again",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+
+                      color: const Color(0xFF210080),
+                      fontSize: MediaQuery.of(context).size.height * 0.025,
+                      fontWeight: FontWeight.w700
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                fetchCrypto();
+              },
+              child: Text(
+                "Retry",
+                style: GoogleFonts.poppins(
+                  fontSize: MediaQuery.of(context).size.height * 0.0175,
+                  color: const Color(0xFF210080),
+                    fontWeight: FontWeight.w400
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.2,
+
+            ),
+          ],
+        )
+            : Column(
           children: <Widget>[
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.4,

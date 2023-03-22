@@ -12,6 +12,7 @@ class CryptoViewModel with ChangeNotifier {
   List<Crypto> cryptoList = [];
   List<Crypto> trendCryptoList = [];
   List<Exchange> exchangesList = [];
+  int selectedIndex = 0;
   Crypto? selectedCrypto;
   final ApiService _apiService = ApiService();
   String x = "123";

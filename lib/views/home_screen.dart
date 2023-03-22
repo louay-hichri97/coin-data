@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/crypto.dart';
 
@@ -20,30 +21,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ApiService _apiService = ApiService();
   final formatCurrency = NumberFormat.simpleCurrency(decimalDigits: 2);
-
-  String greeting() {
-    var hour = DateTime.now().hour;
-    if (hour < 12) {
-      return 'morning';
+  Future<void> _launchUrl(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
     }
-    if (hour < 17) {
-      return 'afternoon';
-    }
-    return 'evening';
   }
+
 
   @override
   void initState() {
     super.initState();
-    print(Provider.of<CryptoViewModel>(context, listen: false)
-            .trendCryptoList[7]
-            .marketCapRank ==
-        null);
+
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     Crypto bitcoin = Provider.of<CryptoViewModel>(context, listen: false)
         .cryptoList
         .firstWhere((element) => element.id == "bitcoin");
@@ -566,7 +559,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           right: MediaQuery.of(context).size.width * 0.05,
                         ),
                         child: ListView.builder(
-                            itemCount: 10,
+                            itemCount: 5,
                             physics: const BouncingScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
@@ -731,7 +724,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, searchScreen);
+                          Provider.of<CryptoViewModel>(context, listen: false).selectedIndex = 2;
                         },
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -740,6 +733,176 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           child: Text(
                             "Show more Cryptocurrencies ...",
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFF210080),
+                                letterSpacing: 1,
+                                fontStyle: FontStyle.normal,
+                                fontSize:
+                                MediaQuery.of(context).size.height * 0.0135),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          child: Text(
+                              "Top Cryptocurrency Spot Exchanges",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018)),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.05,
+                          right: MediaQuery.of(context).size.width * 0.05,
+                        ),
+                        child: ListView.builder(
+                            itemCount: 5,
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  top: index == 0
+                                      ? MediaQuery.of(context).size.height *
+                                      0.03
+                                      : MediaQuery.of(context).size.height *
+                                      0.015,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.075,
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                          Provider.of<CryptoViewModel>(context,
+                                              listen: false)
+                                              .exchangesList[index]
+                                              .image
+                                              .toString(),
+                                        ),
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.035,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width * 0.15,
+                                      child: Text(
+                                          Provider.of<CryptoViewModel>(
+                                              context,
+                                              listen: false)
+                                              .exchangesList[index]
+                                              .name
+                                              .toString(),
+                                          style: GoogleFonts.poppins(
+                                              fontWeight: FontWeight.w700,
+                                              letterSpacing: 0.9,
+                                              fontStyle: FontStyle.normal,
+                                              fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.012,
+                                              color: Colors.black)),
+                                    ),
+
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.035,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.3,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          await _launchUrl(Provider.of<CryptoViewModel>(context, listen: false).exchangesList[index].url.toString());
+                                        },
+                                        child: Text(
+                                            Provider.of<CryptoViewModel>(context,
+                                                listen: false)
+                                                .exchangesList[index]
+                                                .url.toString()
+                                            ,
+                                            style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.w400,
+                                                letterSpacing: 0.9,
+                                                fontStyle: FontStyle.normal,
+                                                fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                    0.01,
+                                                color: Colors.blue)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.035,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                              "#Trust score ",
+                                              style: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w400,
+                                                  letterSpacing: 0.9,
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      0.01,
+                                                  color: Colors.grey)
+                                          ),
+                                          Text(
+                                            Provider.of<CryptoViewModel>(context, listen: false).exchangesList[index].trustScore.toString(),
+                                            style: GoogleFonts.poppins(
+                                                color: double.parse(Provider.of<CryptoViewModel>(context, listen: false).exchangesList[index].trustScore.toString()) < 8
+                                                    ? Colors.red
+                                                    : Colors.green,
+                                                fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                    0.0275,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                      InkWell(
+                        onTap: () {
+                          Provider.of<CryptoViewModel>(context, listen: false).selectedIndex = 1;
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.015,
+                              bottom: MediaQuery.of(context).size.height * 0.015
+                          ),
+                          child: Text(
+                            "Show more Exchanges ...",
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w600,
                                 color: const Color(0xFF210080),

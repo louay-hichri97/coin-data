@@ -27,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   bool showCryptoDetails = false;
   bool dataHistoryError = false;
+  bool descriptionError = false;
   final formatCurrencyPrice = NumberFormat.simpleCurrency(decimalDigits: 6);
 
   List<ChartData> _data = [];
@@ -71,13 +72,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future fetchDescription() async {
     try {
+      setState(() {
+        descriptionError = false;
+      });
       description = await _apiService.getCryptoDescription(
           Provider.of<CryptoViewModel>(context, listen: false)
               .selectedCrypto
               ?.id ??
               "");
-      print("description is $description");
-    } catch (err) {}
+
+    } catch (err) {
+      print(err);
+      setState(() {
+        descriptionError = true;
+      });
+    }
   }
 
 
@@ -103,6 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
       _data = [];
       dataHistoryLoading = true;
       dataHistoryError = false;
+      descriptionError = false;
     });
     Future.wait([
       fetchDataHistory(),
@@ -750,8 +760,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
 
 
-
-                  Padding(
+                  if(!descriptionError)
+                    Padding(
                     padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.05,
                         top: MediaQuery.of(context).size.height * 0.05),
@@ -762,17 +772,20 @@ class _SearchScreenState extends State<SearchScreen> {
                           fontSize: MediaQuery.of(context).size.height * 0.02),
                     ),
                   ),
-                  Padding(
+                  if(!descriptionError)
+                    Padding(
                       padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.05,
                           top: MediaQuery.of(context).size.height * 0.025,
-                          right: MediaQuery.of(context).size.width * 0.05),
+                          right: MediaQuery.of(context).size.width * 0.05,
+                          bottom: MediaQuery.of(context).size.height * 0.075
+                      ),
                       child: Text(
                         description != "" ? description : "No data",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w400,
                             fontSize: MediaQuery.of(context).size.height * 0.015),
-                      ))
+                        ))
                 ],
               ),
             ),
